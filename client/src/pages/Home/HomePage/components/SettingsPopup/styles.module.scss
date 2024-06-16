@@ -1,0 +1,35 @@
+.settings {
+  &__title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 500;
+    margin-bottom: 48px;
+  }
+  &__time {
+    display: flex;
+    align-items: center;
+    margin-bottom: 48px;
+
+    &__title {
+      font-size: 36px;
+      font-weight: 500;
+      margin-right: 12px;
+    }
+    &__content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 24px;
+      font-weight: 500;
+      margin-top: 6px;
+
+      &__input {
+        border: 1px solid #d9d9d9;
+        width: 71px;
+        height: 39px;
+        border-radius: 12px;
+        text-align: center;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+
+  animation: spin infinite 2s;
+}

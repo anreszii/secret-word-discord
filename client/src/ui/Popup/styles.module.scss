@@ -1,0 +1,39 @@
+.popup {
+  visibility: hidden;
+  transition: 0.5s visibility, 1s opacity;
+  &--active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    background-color: rgba($color: #000000, $alpha: 0.4);
+
+    z-index: 100;
+  }
+
+  &__container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 32px;
+
+    padding: 35px 46px 25px 26px;
+    top: 50%;
+    max-height: calc(100% - 30px);
+    overflow: auto;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background: #242424;
+  }
+}
