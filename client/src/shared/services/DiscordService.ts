@@ -1,9 +1,9 @@
 import { DiscordSDK, Events, Types } from "@discord/embedded-app-sdk";
 import { makeAutoObservable } from "mobx";
-import { discordApi } from "shared/api";
 import { localStorageService } from "./LocalStorageService";
 import { ILocalStorageItems } from "../types/localStorage";
-import { IParticipants } from "../types/participants";
+import { IMe, IParticipants } from "../types/participants";
+import { socketService } from "./SocketService";
 
 class DiscordService {
   discordSdk: DiscordSDK = new DiscordSDK(
@@ -11,14 +11,13 @@ class DiscordService {
   );
   loading: boolean = true;
   users: IParticipants[] = [];
+  me: IMe | null = null;
 
   constructor() {
     makeAutoObservable(this);
   }
-
   authDiscord = async () => {
     await this.discordSdk.ready();
-
     const { code } = await this.discordSdk.commands.authorize({
       client_id: import.meta.env.VITE_DISCORD_CLIENT_ID,
       response_type: "code",
@@ -26,24 +25,21 @@ class DiscordService {
       prompt: "none",
       scope: ["identify"],
     });
-
-    const { data } = await discordApi.getTokens(code);
-
-    localStorageService.setItem(
-      ILocalStorageItems.accessToken,
-      data.access_token
-    );
-
-    await this.discordSdk.commands.authenticate({
-      access_token: data.access_token,
+    socketService.getToken(code);
+    socketService.socket.on("token", async (token: string) => {
+      localStorageService.setItem(ILocalStorageItems.accessToken, token);
+      this.me = (
+        await this.discordSdk.commands.authenticate({
+          access_token: token,
+        })
+      ).user;
+      this.getUsers();
     });
   };
-
   getUsers = async () => {
     this.users = (
       await this.discordSdk.commands.getInstanceConnectedParticipants()
     ).participants;
-
     this.discordSdk.subscribe(
       Events.ACTIVITY_INSTANCE_PARTICIPANTS_UPDATE,
       (
@@ -54,7 +50,6 @@ class DiscordService {
     );
     this.loading = false;
   };
-
   getLinkPhoto = (
     userId: string,
     userAvatar: string | null | undefined

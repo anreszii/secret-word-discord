@@ -7,12 +7,12 @@ export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: {
     proxy: {
-      "/api": {
-        target: "http://localhost:3001",
-      },
-      "/socket.io": {
-        target: "ws://localhost:3001",
+      "/socket": {
+        target: "http://127.0.0.1:3001",
+        changeOrigin: true,
+        secure: false,
         ws: true,
+        rewrite: (path) => path.replace(/^\/socket/, ""),
       },
     },
   },

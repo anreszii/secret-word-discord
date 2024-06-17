@@ -1,6 +1,5 @@
 .popup {
   visibility: hidden;
-  transition: 0.5s visibility, 1s opacity;
   &--active {
     opacity: 1;
     visibility: visible;

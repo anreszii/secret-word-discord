@@ -1,0 +1,23 @@
+.pack {
+  &__title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 500;
+    margin-bottom: 48px;
+  }
+
+  &__inputs {
+    border: 1px solid #d9d9d9;
+    padding: 10px 12px;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    height: 280px;
+    overflow-y: scroll;
+  }
+
+  &__container {
+    height: 44px;
+  }
+}
