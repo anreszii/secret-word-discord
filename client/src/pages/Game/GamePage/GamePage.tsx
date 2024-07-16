@@ -23,6 +23,7 @@ export const GamePage = observer(() => {
     );
 
     socket.on("endGame", () => {
+      navigate("/");
       simpleEndGame();
     });
 

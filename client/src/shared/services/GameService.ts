@@ -4,7 +4,7 @@ import { SyncGameData } from "../types/game";
 import { socketService } from "./SocketService";
 
 class GameService {
-  pack: string[] = [""];
+  pack: string[] = [];
   word: string = "";
   peaceful: IParticipants[] = [];
   scout: IParticipants | null = null;
@@ -44,7 +44,7 @@ class GameService {
   startGame = (players: IParticipants[]) => {
     this.inGame = true;
 
-    this.word = this.pack[Math.floor(Math.random() * this.pack.length)];
+    this.word = this.pack[Math.floor(Math.random() * this.pack.length)] ?? "";
     const randomPlayer = Math.floor(Math.random() * players.length);
 
     players.forEach((player) => {

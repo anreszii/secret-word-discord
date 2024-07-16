@@ -20,7 +20,7 @@ const App = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const scaleFactor = window.innerWidth / 1080;
+      const scaleFactor = window.innerWidth / 1280;
 
       setScaleFactor(scaleFactor);
     };
